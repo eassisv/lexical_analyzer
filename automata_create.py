@@ -3,23 +3,35 @@ import re
 automata = {0: {}}
 
 
-def addTokenToAutomata(token):
-    newState = len(automata)
+def addTransitionToAutomata(state, label, toState):
     try:
-        # add state to transition
-        automata[0][token[0]].add(newState)
+        automata[state][label].add(toState)
     except KeyError:
-        # create index in dictionary
-        automata[0][token[0]] = set([newState])
+        automata[state][label] = set([toState])
+
+
+def addTerminalLabelToState(state, name=""):
+    automata[state]["isTerminal"] = name
+
+
+def addNewAutomataState():
+    newState = len(automata)
+    automata[newState] = {}
+    return newState
+
+
+def addTokenToAutomata(token):
+    newState = addNewAutomataState()
+    # the first token symbol goes to the first automata state
+    addTransitionToAutomata(0, token[0], newState)
     for symbol in token[1::]:
         state = newState
-        # TODO Colocar isso numa função vai ajudar
-        newState = state + 1
-        automata[state] = {symbol: newState}
-    automata[state]["isTerminal"] = token
+        newState = addNewAutomataState()
+        addTransitionToAutomata(state, symbol, newState)
+    addTerminalLabelToState(newState, token)
 
 
-def filterGrammarRule(grammarLine):
+def filterGrammarLine(grammarLine):
     print("Filtrar linha: ", grammarLine)
     grammarLine = re.sub(r"\ +", "", grammarLine)
     ruleName, transitions = re.split(r"::=", grammarLine)
@@ -31,28 +43,55 @@ def filterGrammarRule(grammarLine):
     )
     return ruleName, transitions
 
-# TODO Tornar essa função mais genérica, passando para ela argumentos para inicializar o estado
-def addNewAutomataState(isTerminal=False, label=""):
-    newState = len(automata)
-    automata[newState] = {"isTerminal": label} if isTerminal else {}
-    return newState
 
-def addGrammarToAutomata(label, grammar):
-    mapRuleToState = {"S": 0}
-    for rule in grammar:
-        name, transitions = filterGrammarRule(rule)
+def addGrammarToAutomata(grammarLabel, grammar):
+    # the initial state of grammar must be labeled with 'S'
+    mapNameToState = {}
+
+    def getStateForName(name):
         try:
-            automataState = mapRuleToState[name]
+            return mapNameToState[name]
         except KeyError:
-            automataState = mapRuleToState[name] = len(automata)
-        automata[automataState] = {}
-        for label, transition in transitions:
-            try:
-                state = mapRuleToState[label]
-            except KeyError:
+            mapNameToState[name] = addNewAutomataState()
+            return mapNameToState[name]
 
-            try:
-                automata[automata][label].add()
+    for line in grammar:
+        name, rules = filterGrammarLine(line)
+        newState = getStateForName(name)
+        for label, rule in rules:
+            toState = getStateForName(rule)
+            if name == "S":
+                addTransitionToAutomata(0, "", newState)
+            addTransitionToAutomata(newState, label, toState)
+    addTerminalLabelToState(getStateForName(""), grammarLabel)
+
+
+def joinStates(state1, state2):
+    for key in automata[state2].keys():
+        if key == "isTerminal":
+            addTerminalLabelToState(state1, automata[state2][key])
+            continue
+        for transition in automata[state2][key]:
+            addTransitionToAutomata(state1, key, transition)
+
+
+def removeEpsilonTransitions():
+    seen = set()
+
+    def removeEpsilon(state):
+        if state in seen:
+            return
+        seen.add(state)
+        try:
+            for transition in automata[state][""].copy():
+                removeEpsilon(transition)
+                joinStates(state, transition)
+            del automata[state][""]
+        except KeyError:
+            return
+
+    removeEpsilon(0)
+
 
 while True:
     try:
@@ -83,6 +122,6 @@ while True:
 
         break
 
-
+removeEpsilonTransitions()
 for state, value in automata.items():
-    print(state, " | ", value)
+    print(state, ":", value)

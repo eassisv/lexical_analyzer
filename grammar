@@ -4,6 +4,6 @@ while
 for
 function
 
-var
-S ::= a<A> | ffd<GFds> | dd<DDS>
-S ::= ds<43> | dfs<43> | 984*3983<Ds>
+double
+S ::= 1<S> | 2<S> | 3<S> | .<A> | <A>
+A ::= 1<A> | 2<A> | 3<A> | <>
