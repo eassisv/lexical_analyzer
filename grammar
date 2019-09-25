@@ -1,9 +1,10 @@
-if
-else
-while
-for
-function
+av
+avav
 
-double
-S ::= 1<S> | 2<S> | 3<S> | .<A> | <A>
-A ::= 1<A> | 2<A> | 3<A> | <>
+impar
+<S> ::= a<A> | a<> | b<S>
+<A> ::= a<S> | b<A> | b<>
+
+par
+<S> ::= <> | a<A> | b<> | b<S>
+<A> ::= a<S> | b<A>

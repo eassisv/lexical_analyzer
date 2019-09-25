@@ -34,12 +34,15 @@ def addTokenToAutomata(token):
 def filterGrammarLine(grammarLine):
     grammarLine = re.sub(r"\ +", "", grammarLine)
     ruleName, transitions = re.split(r"::=", grammarLine)
+    # print(transitions)
     transitions = list(
         map(
             lambda tr: tuple(re.sub(r">$", "", tr).split("<", maxsplit=1)),
-            re.split(r"\|", transitions),
+            transitions.split("|"),
         )
     )
+
+    # print(ruleName, " ", transitions)
     return ruleName, transitions
 
 
@@ -73,6 +76,11 @@ def joinStates(state1, state2):
         for transition in automata[state2][key]:
             addTransitionToAutomata(state1, key, transition)
 
+    # print("*" * 100)
+    # for state, value in automata.items():
+    #     print(state, ":", value)
+    # print("*" * 100)
+
 
 def removeEpsilonTransitions():
     seen = set()
@@ -94,18 +102,31 @@ def removeEpsilonTransitions():
 
 def eliminateNonDeterminism():
     mapNewStates = {}
-    seen = set()
 
     def eliminate(state):
-        for transition in state:
-            if len(state[transition]) > 1:
-                pass
+        # print("mapNew: ", mapNewStates)
+        for label in state.keys():
+            if label == "isTerminal":
+                continue
+            # print("Wow: ", state)
+            if len(state[label]) > 1:
+                newLabel = str(sorted(list(state[label])))
+                # print("NewLabel: ", newLabel)
+                newState = mapNewStates.get(newLabel)
+                if not newState:
+                    # print(newLabel, " nao")
+                    newState = addNewAutomataState()
+                    mapNewStates[newLabel] = newState
+                    for transition in state[label]:
+                        # print("joinning: ", newState, " and ", transition)
+                        joinStates(newState, transition)
+                    eliminate(automata[newState])
+                state[label] = newState
             else:
-                state[transition] = state[transition].pop()
+                state[label] = state[label].pop()
 
-    states = automata.values()
-    for state in states:
-        eliminate(state)
+    for state in automata.copy().keys():
+        eliminate(automata[state])
 
 
 while True:
