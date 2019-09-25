@@ -32,7 +32,6 @@ def addTokenToAutomata(token):
 
 
 def filterGrammarLine(grammarLine):
-    print("Filtrar linha: ", grammarLine)
     grammarLine = re.sub(r"\ +", "", grammarLine)
     ruleName, transitions = re.split(r"::=", grammarLine)
     transitions = list(
@@ -93,6 +92,22 @@ def removeEpsilonTransitions():
     removeEpsilon(0)
 
 
+def eliminateNonDeterminism():
+    mapNewStates = {}
+    seen = set()
+
+    def eliminate(state):
+        for transition in state:
+            if len(state[transition]) > 1:
+                pass
+            else:
+                state[transition] = state[transition].pop()
+
+    states = automata.values()
+    for state in states:
+        eliminate(state)
+
+
 while True:
     try:
         token = input()
@@ -119,9 +134,14 @@ while True:
     except EOFError:
         if grammar:
             addGrammarToAutomata(label, grammar)
-
         break
+
 
 removeEpsilonTransitions()
 for state, value in automata.items():
     print(state, ":", value)
+eliminateNonDeterminism()
+
+for state, value in automata.items():
+    print(state, ":", value)
+
