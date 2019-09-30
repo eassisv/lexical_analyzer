@@ -3,38 +3,37 @@ import re
 automata = {0: {}}
 
 
-def addTransitionToAutomata(state, label, toState):
+def add_transition_to_automata(state, label, to_state):
     try:
-        automata[state][label].add(toState)
+        automata[state][label].add(to_state)
     except KeyError:
-        automata[state][label] = set([toState])
+        automata[state][label] = set([to_state])
 
 
-def addTerminalLabelToState(state, name=""):
-    automata[state]["isTerminal"] = name
+def add_terminal_label_to_state(state, name=""):
+    automata[state]["is_terminal"] = name
 
 
-def addNewAutomataState():
-    newState = len(automata)
-    automata[newState] = {}
-    return newState
+def add_new_state_to_automata():
+    new_state = len(automata)
+    automata[new_state] = {}
+    return new_state
 
 
-def addTokenToAutomata(token):
-    newState = addNewAutomataState()
+def add_token_to_automata(token):
+    new_state = add_new_state_to_automata()
     # the first token symbol goes to the first automata state
-    addTransitionToAutomata(0, token[0], newState)
+    add_transition_to_automata(0, token[0], new_state)
     for symbol in token[1::]:
-        state = newState
-        newState = addNewAutomataState()
-        addTransitionToAutomata(state, symbol, newState)
-    addTerminalLabelToState(newState, token)
+        state = new_state
+        new_state = add_new_state_to_automata()
+        add_transition_to_automata(state, symbol, new_state)
+    add_terminal_label_to_state(new_state, token)
 
 
-def filterGrammarLine(grammarLine):
-    grammarLine = re.sub(r"\ +", "", grammarLine)
-    ruleName, transitions = re.split(r"::=", grammarLine)
-    # print(transitions)
+def filter_grammar_line(grammar_line):
+    grammar_line = re.sub(r"\ +", "", grammar_line)
+    rule_name, transitions = re.split(r"::=", grammar_line)
     transitions = list(
         map(
             lambda tr: tuple(re.sub(r">$", "", tr).split("<", maxsplit=1)),
@@ -42,86 +41,75 @@ def filterGrammarLine(grammarLine):
         )
     )
 
-    # print(ruleName, " ", transitions)
-    return ruleName, transitions
+    return rule_name, transitions
 
 
-def addGrammarToAutomata(grammarLabel, grammar):
+def add_grammar_to_automata(grammar_name, grammar):
     # the initial state of grammar must be labeled with 'S'
-    mapNameToState = {}
+    map_label_to_state = {"S": add_new_state_to_automata()}
 
-    def getStateForName(name):
+    def get_state_for_rule(name):
         try:
-            return mapNameToState[name]
+            return map_label_to_state[name]
         except KeyError:
-            mapNameToState[name] = addNewAutomataState()
-            return mapNameToState[name]
+            map_label_to_state[name] = add_new_state_to_automata()
+            return map_label_to_state[name]
 
     for line in grammar:
-        name, rules = filterGrammarLine(line)
-        newState = getStateForName(name)
+        grammar_label, rules = filter_grammar_line(line)
+        new_state = get_state_for_rule(grammar_label)
         for label, rule in rules:
-            toState = getStateForName(rule)
-            if name == "S":
-                addTransitionToAutomata(0, "", newState)
-            addTransitionToAutomata(newState, label, toState)
-    addTerminalLabelToState(getStateForName(""), grammarLabel)
+            to_state = get_state_for_rule(rule)
+            add_transition_to_automata(new_state, label, to_state)
+    add_terminal_label_to_state(get_state_for_rule(""), grammar_name)
+    join_states(0, get_state_for_rule("S"))
 
 
-def joinStates(state1, state2):
+def join_states(state1, state2):
     for key in automata[state2].keys():
-        if key == "isTerminal":
-            addTerminalLabelToState(state1, automata[state2][key])
+        if key == "is_terminal":
+            add_terminal_label_to_state(state1, automata[state2][key])
             continue
         for transition in automata[state2][key]:
-            addTransitionToAutomata(state1, key, transition)
-
-    # print("*" * 100)
-    # for state, value in automata.items():
-    #     print(state, ":", value)
-    # print("*" * 100)
+            add_transition_to_automata(state1, key, transition)
 
 
-def removeEpsilonTransitions():
+def remove_epsilon_transitions():
     seen = set()
 
-    def removeEpsilon(state):
+    def remove_epsilon(state):
         if state in seen:
             return
         seen.add(state)
         try:
             for transition in automata[state][""].copy():
-                removeEpsilon(transition)
-                joinStates(state, transition)
+                remove_epsilon(transition)
+                join_states(state, transition)
             del automata[state][""]
         except KeyError:
             return
 
-    removeEpsilon(0)
+    for state in automata:
+        remove_epsilon(state)
 
 
-def eliminateNonDeterminism():
-    mapNewStates = {}
+def eliminate_non_determinism():
+    map_new_states = {}
 
     def eliminate(state):
-        # print("mapNew: ", mapNewStates)
         for label in state.keys():
-            if label == "isTerminal":
+            if label == "is_terminal":
                 continue
-            # print("Wow: ", state)
             if len(state[label]) > 1:
-                newLabel = str(sorted(list(state[label])))
-                # print("NewLabel: ", newLabel)
-                newState = mapNewStates.get(newLabel)
-                if not newState:
-                    # print(newLabel, " nao")
-                    newState = addNewAutomataState()
-                    mapNewStates[newLabel] = newState
+                new_label = str(sorted(list(state[label])))
+                new_state = map_new_states.get(new_label)
+                if not new_state:
+                    new_state = add_new_state_to_automata()
+                    map_new_states[new_label] = new_state
                     for transition in state[label]:
-                        # print("joinning: ", newState, " and ", transition)
-                        joinStates(newState, transition)
-                    eliminate(automata[newState])
-                state[label] = newState
+                        join_states(new_state, transition)
+                    eliminate(automata[new_state])
+                state[label] = new_state
             else:
                 state[label] = state[label].pop()
 
@@ -132,9 +120,9 @@ def eliminateNonDeterminism():
 while True:
     try:
         token = input()
-        if token == "":
+        if not token:
             break
-        addTokenToAutomata(token)
+        add_token_to_automata(token)
     except EOFError:
         break
 
@@ -143,26 +131,28 @@ grammar = []
 while True:
     try:
         line = input()
-        if line == "":
-            addGrammarToAutomata(label, grammar)
-            grammar = []
-            label = ""
+        if not line:
+            add_grammar_to_automata(label, grammar)
+            grammar, label = [], ""
             continue
-        if label == "":
+        if not label:
             label = line
         else:
             grammar.append(line)
     except EOFError:
         if grammar:
-            addGrammarToAutomata(label, grammar)
+            add_grammar_to_automata(label, grammar)
         break
 
 
-removeEpsilonTransitions()
-for state, value in automata.items():
-    print(state, ":", value)
-eliminateNonDeterminism()
+def print_automata():
+    for state, value in automata.items():
+        print(state, ":", value)
 
-for state, value in automata.items():
-    print(state, ":", value)
+
+print_automata()
+remove_epsilon_transitions()
+print_automata()
+# eliminate_non_determinism()
+# print_automata()
 
