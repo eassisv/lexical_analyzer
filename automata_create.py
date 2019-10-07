@@ -70,8 +70,11 @@ def join_states(state1, state2):
         if key == "is_terminal":
             add_terminal_label_to_state(state1, automata[state2][key])
             continue
-        for transition in automata[state2][key]:
-            add_transition_to_automata(state1, key, transition)
+        try:
+            for transition in automata[state2][key]:
+                add_transition_to_automata(state1, key, transition)
+        except TypeError:
+            add_transition_to_automata(state1, key, key)
 
 
 def remove_epsilon_transitions():
@@ -114,6 +117,8 @@ def eliminate_non_determinism():
                 state[label] = state[label].pop()
 
     for state in automata.copy().keys():
+        print(state, "*" * 50)
+        print_automata()
         eliminate(automata[state])
 
 
@@ -153,6 +158,6 @@ def print_automata():
 print_automata()
 remove_epsilon_transitions()
 print_automata()
-# eliminate_non_determinism()
-# print_automata()
+eliminate_non_determinism()
+print_automata()
 
