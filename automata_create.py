@@ -117,9 +117,24 @@ def eliminate_non_determinism():
                 state[label] = state[label].pop()
 
     for state in automata.copy().keys():
-        print(state, "*" * 50)
-        print_automata()
         eliminate(automata[state])
+
+
+def remove_unreachable_states():
+    seen = set()
+
+    def remove(state):
+        if state in seen: return
+        seen.add(state)
+        for key, transition in automata[state].items():
+            if key != "is_terminal":
+                remove(transition)
+
+    remove(0)
+    for key in automata.copy().keys():
+        if key not in seen:
+            del automata[key]
+
 
 
 while True:
@@ -151,6 +166,7 @@ while True:
 
 
 def print_automata():
+    print("*"*100)
     for state, value in automata.items():
         print(state, ":", value)
 
@@ -160,4 +176,5 @@ remove_epsilon_transitions()
 print_automata()
 eliminate_non_determinism()
 print_automata()
-
+remove_unreachable_states()
+print_automata()
