@@ -1,4 +1,4 @@
-import re
+import re, json
 
 automata = {0: {}}
 
@@ -124,7 +124,8 @@ def remove_unreachable_states():
     seen = set()
 
     def remove(state):
-        if state in seen: return
+        if state in seen:
+            return
         seen.add(state)
         for key, transition in automata[state].items():
             if key != "is_terminal":
@@ -140,7 +141,8 @@ def remove_useless_states():
     seen, useful = set(), set()
 
     def remove(state):
-        if state in seen: return
+        if state in seen:
+            return
         seen.add(state)
         for key, transition in automata[state].items():
             if key == "is_terminal":
@@ -151,15 +153,12 @@ def remove_useless_states():
         return state in useful
 
     remove(0)
-    print(useful)
     for state in automata.copy().keys():
         if state not in useful:
-            print('removing', state)
             del automata[state]
         else:
             for key, value in automata[state].copy().items():
                 if value not in useful and key != "is_terminal":
-                    print('removing', state, key)
                     del automata[state][key]
 
 
@@ -192,17 +191,16 @@ while True:
 
 
 def print_automata():
-    print("*"*100)
+    print("*" * 100)
     for state, value in automata.items():
         print(state, ":", value)
 
 
-print_automata()
 remove_epsilon_transitions()
-print_automata()
 eliminate_non_determinism()
-print_automata()
 remove_unreachable_states()
-print_automata()
 remove_useless_states()
-print_automata()
+
+output_file = open("automata.json", "w", encoding="utf-8")
+json.dump(automata, output_file, indent=2, sort_keys=True)
+output_file.close()

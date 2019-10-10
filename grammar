@@ -1,18 +1,36 @@
 if
 else
 while
-for
-break
-continue
+and
+or
+not
+;
+run
+{
+}
+(
+)
+<
+>
+==
+>=
+=
++
+/
+*
+-
+say
 
+var
+S ::= $<B>
+B ::= a<C> | b<C> | c<C> | d<C> | e<C> | f<C> | g<C> | h<C> | i<C> | j<C> | k<C> | l<C> | m<C> | n<C> | o<C> | p<C> | q<C> | r<C> | s<C> | t<C> | u<C> | v<C> | w<C> | x<C> | y<C> | z<C>
+C ::= a<C> | b<C> | c<C> | d<C> | e<C> | f<C> | g<C> | h<C> | i<C> | j<C> | k<C> | l<C> | m<C> | n<C> | o<C> | p<C> | q<C> | r<C> | s<C> | t<C> | u<C> | v<C> | w<C> | x<C> | y<C> | z<C> | %<>
 
-odd
-S ::= 0<B> | 1<A> | 1<>
-A ::= 0<B> | 1<A> | <>
-B ::= 0<B> | 1<A>
+number
+S ::= 0<E> | 1<E> | 2<E> | 3<E> | 4<E> | 5<E> | 6<E> | 7<E> | 8<E> | 9<E>
+E ::= 0<E> | 1<E> | 2<E> | 3<E> | 4<E> | 5<E> | 6<E> | 7<E> | 8<E> | 9<E> | %<>
 
-even
-S ::= 0<A> | 1<S>
-A ::= 1<B> | 0<A> | <>
-B ::= 1<C> | 0<B> | 0<>
-C ::= 1<C> | <B>
+list
+S ::= [<G>
+G ::= a<H> | b<H> | c<H> | d<H> | e<H> | f<H> | g<H> | h<H> | i<H> | j<H> | k<H> | l<H> | m<H> | n<H> | o<H> | p<H> | q<H> | r<H> | s<H> | t<H> | u<H> | v<H> | w<H> | x<H> | y<H> | z<H>
+H ::= ]<>
