@@ -1,0 +1,182 @@
+[
+  {
+    "line": 1,
+    "state": "61",
+    "token": "var",
+    "word": "if"
+  },
+  {
+    "line": 1,
+    "state": "45",
+    "token": "(",
+    "word": "("
+  },
+  {
+    "line": 1,
+    "state": "61",
+    "token": "var",
+    "word": "a"
+  },
+  {
+    "line": 1,
+    "state": "52",
+    "token": ">=",
+    "word": ">="
+  },
+  {
+    "line": 1,
+    "state": "110",
+    "token": "integer",
+    "word": "1"
+  },
+  {
+    "line": 1,
+    "state": "46",
+    "token": ")",
+    "word": ")"
+  },
+  {
+    "line": 2,
+    "state": "43",
+    "token": "{",
+    "word": "{"
+  },
+  {
+    "line": 2,
+    "state": "103",
+    "token": "print",
+    "word": "print"
+  },
+  {
+    "line": 2,
+    "state": "45",
+    "token": "(",
+    "word": "("
+  },
+  {
+    "line": 2,
+    "state": "41",
+    "token": "\"",
+    "word": "\""
+  },
+  {
+    "line": 2,
+    "state": "61",
+    "token": "var",
+    "word": "a"
+  },
+  {
+    "line": 2,
+    "state": "108",
+    "token": ">",
+    "word": ">"
+  },
+  {
+    "line": 2,
+    "state": "110",
+    "token": "integer",
+    "word": "1"
+  },
+  {
+    "line": 2,
+    "state": "41",
+    "token": "\"",
+    "word": "\""
+  },
+  {
+    "line": 2,
+    "state": "46",
+    "token": ")",
+    "word": ")"
+  },
+  {
+    "line": 3,
+    "state": "42",
+    "token": ";",
+    "word": ";"
+  },
+  {
+    "line": 3,
+    "state": "44",
+    "token": "}",
+    "word": "}"
+  },
+  {
+    "line": 3,
+    "state": "76",
+    "token": "else",
+    "word": "else"
+  },
+  {
+    "line": 4,
+    "state": "43",
+    "token": "{",
+    "word": "{"
+  },
+  {
+    "line": 4,
+    "state": "103",
+    "token": "print",
+    "word": "print"
+  },
+  {
+    "line": 4,
+    "state": "45",
+    "token": "(",
+    "word": "("
+  },
+  {
+    "line": 4,
+    "state": "41",
+    "token": "\"",
+    "word": "\""
+  },
+  {
+    "line": 4,
+    "state": "61",
+    "token": "var",
+    "word": "a"
+  },
+  {
+    "line": 4,
+    "state": "54",
+    "token": "<=",
+    "word": "<="
+  },
+  {
+    "line": 4,
+    "state": "110",
+    "token": "integer",
+    "word": "1"
+  },
+  {
+    "line": 4,
+    "state": "41",
+    "token": "\"",
+    "word": "\""
+  },
+  {
+    "line": 4,
+    "state": "46",
+    "token": ")",
+    "word": ")"
+  },
+  {
+    "line": 5,
+    "state": "42",
+    "token": ";",
+    "word": ";"
+  },
+  {
+    "line": 5,
+    "state": "44",
+    "token": "}",
+    "word": "}"
+  },
+  {
+    "line": 5,
+    "state": "42",
+    "token": ";",
+    "word": ";"
+  }
+]
