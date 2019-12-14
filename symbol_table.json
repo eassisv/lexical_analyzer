@@ -1,181 +1,133 @@
 [
   {
     "line": 1,
-    "state": "61",
-    "token": "var",
+    "state": "76",
+    "token": "if",
     "word": "if"
   },
   {
     "line": 1,
-    "state": "45",
+    "state": "40",
     "token": "(",
     "word": "("
   },
   {
     "line": 1,
-    "state": "61",
-    "token": "var",
+    "state": "72",
+    "token": "variable",
     "word": "a"
   },
   {
     "line": 1,
-    "state": "52",
-    "token": ">=",
-    "word": ">="
-  },
-  {
-    "line": 1,
-    "state": "110",
-    "token": "integer",
-    "word": "1"
-  },
-  {
-    "line": 1,
-    "state": "46",
-    "token": ")",
-    "word": ")"
-  },
-  {
-    "line": 2,
-    "state": "43",
-    "token": "{",
-    "word": "{"
-  },
-  {
-    "line": 2,
-    "state": "103",
-    "token": "print",
-    "word": "print"
-  },
-  {
-    "line": 2,
-    "state": "45",
-    "token": "(",
-    "word": "("
-  },
-  {
-    "line": 2,
-    "state": "41",
-    "token": "\"",
-    "word": "\""
-  },
-  {
-    "line": 2,
-    "state": "61",
-    "token": "var",
-    "word": "a"
-  },
-  {
-    "line": 2,
-    "state": "108",
+    "state": "111",
     "token": ">",
     "word": ">"
   },
   {
-    "line": 2,
-    "state": "110",
+    "line": 1,
+    "state": "113",
     "token": "integer",
     "word": "1"
   },
   {
-    "line": 2,
+    "line": 1,
     "state": "41",
-    "token": "\"",
-    "word": "\""
-  },
-  {
-    "line": 2,
-    "state": "46",
     "token": ")",
     "word": ")"
   },
   {
-    "line": 3,
-    "state": "42",
+    "line": 1,
+    "state": "38",
+    "token": "{",
+    "word": "{"
+  },
+  {
+    "line": 2,
+    "state": "97",
+    "token": "print",
+    "word": "print"
+  },
+  {
+    "line": 2,
+    "state": "40",
+    "token": "(",
+    "word": "("
+  },
+  {
+    "line": 2,
+    "state": -1,
+    "token": "",
+    "word": "\"a > 1\""
+  },
+  {
+    "line": 2,
+    "state": "41",
+    "token": ")",
+    "word": ")"
+  },
+  {
+    "line": 2,
+    "state": "37",
     "token": ";",
     "word": ";"
   },
   {
     "line": 3,
-    "state": "44",
+    "state": "39",
     "token": "}",
     "word": "}"
   },
   {
     "line": 3,
-    "state": "76",
+    "state": "82",
     "token": "else",
     "word": "else"
   },
   {
-    "line": 4,
-    "state": "43",
+    "line": 3,
+    "state": "38",
     "token": "{",
     "word": "{"
   },
   {
     "line": 4,
-    "state": "103",
+    "state": "97",
     "token": "print",
     "word": "print"
   },
   {
     "line": 4,
-    "state": "45",
+    "state": "40",
     "token": "(",
     "word": "("
   },
   {
     "line": 4,
-    "state": "41",
-    "token": "\"",
-    "word": "\""
-  },
-  {
-    "line": 4,
-    "state": "61",
-    "token": "var",
-    "word": "a"
-  },
-  {
-    "line": 4,
-    "state": "54",
-    "token": "<=",
-    "word": "<="
-  },
-  {
-    "line": 4,
-    "state": "110",
-    "token": "integer",
-    "word": "1"
+    "state": -1,
+    "token": "",
+    "word": "\"a<=1\""
   },
   {
     "line": 4,
     "state": "41",
-    "token": "\"",
-    "word": "\""
-  },
-  {
-    "line": 4,
-    "state": "46",
     "token": ")",
     "word": ")"
   },
   {
-    "line": 5,
-    "state": "42",
+    "line": 4,
+    "state": "37",
     "token": ";",
     "word": ";"
   },
   {
     "line": 5,
-    "state": "44",
+    "state": "39",
     "token": "}",
     "word": "}"
   },
   {
     "line": 5,
-    "state": "42",
+    "state": "37",
     "token": ";",
     "word": ";"
   }

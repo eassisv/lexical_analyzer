@@ -1,0 +1,58 @@
+E' -> Statements
+Operator -> -
+Operator -> + 
+Operator -> / 
+Operator -> * 
+Operator -> %
+Operator -> and
+Operator -> or
+
+Type -> int
+Type -> float
+Type -> str
+Type -> bool
+
+Operand -> integer 
+Operand -> decimal
+Operand -> string
+Operand -> variable
+Operand -> List
+
+List -> [  ]
+List -> [ CommaValues ]
+
+Expression -> ( Expression ) 
+Expression -> ( Expression Operator Expression ) 
+Expression -> Operand
+
+TypedValue -> Type variable
+
+CommaTypedValues -> TypedValue 
+CommaTypedValues -> TypedValue , CommaTypedValues
+
+CommaValues -> Operand
+CommaValues -> Operand , CommaValues
+
+Attribution -> TypedValue = Expression
+
+FunctionRule -> TypedValue ( ) Block
+FunctionRule -> TypedValue ( CommaTypedValue ) Block
+
+Conditional -> if ( Expression ) Block
+Conditional -> if ( Expression ) Block else Block
+
+WhileLoop -> while ( Expression ) Block
+
+Block -> {  }
+Block -> { Statements }
+
+Statements -> SingleStatement Statements
+Statements -> SingleStatement
+
+SingleStatement -> Expression ;
+SingleStatement -> return Expression ;
+SingleStatement -> Attribution ;
+SingleStatement -> print ( Operand ) ;
+SingleStatement -> FunctionRule
+SingleStatement -> Conditional
+SingleStatement -> WhileLoop

@@ -1,4 +1,4 @@
-import sys, json
+import sys, json, re
 
 
 def load_json(file_name):
@@ -30,11 +30,10 @@ def record_on_table(word, line):
     symbol_table.append({"state": state, "token": token, "word": word, "line": line})
 
 
-to_ignore = set([" ", "\t", "\n"])
+to_ignore = set([" ", "\t", "\n", '"'])
 delimiters = set(
     [
         " ",
-        '"',
         "<",
         ">",
         "=",
@@ -69,12 +68,12 @@ word = delimiter = ""
 line = column = 1
 for char in source:
     column += 1
-    if char == "\n":
-        line += 1
-        column = 1
 
     if char in delimiters:
-        if word:
+        if re.match(r'^\".*$', word):
+            word += char
+            char = " "
+        elif word:
             record_on_table(word, line)
             word = ""
         if (delimiter + char) not in delimiters:
@@ -82,10 +81,18 @@ for char in source:
             delimiter = ""
         delimiter += "" if char in to_ignore else char
     else:
+        word += char
+        if re.match(r'^\".*\"$', word):
+            record_on_table(word, line)
+            word = ""
+            delimiter = ""
         if delimiter:
             record_on_table(delimiter, line)
             delimiter = ""
-        word += char
+
+    if char == "\n":
+        line += 1
+        column = 1
 
 if delimiter:
     record_on_table(delimiter, line)
