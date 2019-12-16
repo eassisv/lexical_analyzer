@@ -11,7 +11,8 @@ def add_transition_to_automata(state, label, to_state):
 
 
 def add_terminal_label_to_state(state, name=""):
-    automata[state]["is_terminal"] = name
+    if automata[state].get("is_terminal") == None:
+        automata[state]["is_terminal"] = name
 
 
 def add_new_state_to_automata():

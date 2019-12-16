@@ -10,10 +10,16 @@ def load_json(file_name):
 
 def verify_token(token):
     state = 0
+    print('token: "{}"'.format(token))
     for char in token:
+        print(char)
         try:
+            # if re.match(r'^\".*\"$', token):
+            #     print("verifica:", char)
             state = automata[str(state)][char]
         except KeyError:
+            # if re.match(r'^\".*\"$', word):
+            #     print("nao deu para", token)
             return -1, ""
 
     try:
@@ -27,12 +33,13 @@ def verify_token(token):
 
 def record_on_table(word, line):
     state, token = verify_token(word)
-    symbol_table.append({"state": state, "token": token, "word": word, "line": line})
+    symbol_table.append({"state": state, "token": token, "value": word, "line": line})
 
 
 to_ignore = set([" ", "\t", "\n", '"'])
 delimiters = set(
     [
+        ",",
         " ",
         "<",
         ">",
@@ -70,7 +77,7 @@ for char in source:
     column += 1
 
     if char in delimiters:
-        if re.match(r'^\".*$', word):
+        if re.match(r"^\".*$", word):
             word += char
             char = " "
         elif word:
@@ -82,7 +89,8 @@ for char in source:
         delimiter += "" if char in to_ignore else char
     else:
         word += char
-        if re.match(r'^\".*\"$', word):
+        if re.match(r"^\".*\"$", word):
+            # print(word)
             record_on_table(word, line)
             word = ""
             delimiter = ""

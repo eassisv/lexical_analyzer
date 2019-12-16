@@ -1,0 +1,247 @@
+[
+  {
+    "len": 1,
+    "name": "E'",
+    "rule": "E' -> Statements"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> -"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> +"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> /"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> *"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> %"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> <"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> >"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> =="
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> <="
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> >="
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> and"
+  },
+  {
+    "len": 1,
+    "name": "Operator",
+    "rule": "Operator -> or"
+  },
+  {
+    "len": 1,
+    "name": "Type",
+    "rule": "Type -> int"
+  },
+  {
+    "len": 1,
+    "name": "Type",
+    "rule": "Type -> float"
+  },
+  {
+    "len": 1,
+    "name": "Type",
+    "rule": "Type -> str"
+  },
+  {
+    "len": 1,
+    "name": "Type",
+    "rule": "Type -> bool"
+  },
+  {
+    "len": 1,
+    "name": "Operand",
+    "rule": "Operand -> integer"
+  },
+  {
+    "len": 1,
+    "name": "Operand",
+    "rule": "Operand -> decimal"
+  },
+  {
+    "len": 1,
+    "name": "Operand",
+    "rule": "Operand -> string"
+  },
+  {
+    "len": 1,
+    "name": "Operand",
+    "rule": "Operand -> variable"
+  },
+  {
+    "len": 1,
+    "name": "Operand",
+    "rule": "Operand -> List"
+  },
+  {
+    "len": 2,
+    "name": "List",
+    "rule": "List -> [  ]"
+  },
+  {
+    "len": 3,
+    "name": "List",
+    "rule": "List -> [ CommaValues ]"
+  },
+  {
+    "len": 3,
+    "name": "Expression",
+    "rule": "Expression -> ( Expression )"
+  },
+  {
+    "len": 5,
+    "name": "Expression",
+    "rule": "Expression -> ( Expression Operator Expression )"
+  },
+  {
+    "len": 1,
+    "name": "Expression",
+    "rule": "Expression -> Operand"
+  },
+  {
+    "len": 2,
+    "name": "TypedValue",
+    "rule": "TypedValue -> Type variable"
+  },
+  {
+    "len": 1,
+    "name": "CommaTypedValues",
+    "rule": "CommaTypedValues -> TypedValue"
+  },
+  {
+    "len": 3,
+    "name": "CommaTypedValues",
+    "rule": "CommaTypedValues -> TypedValue , CommaTypedValues"
+  },
+  {
+    "len": 1,
+    "name": "CommaValues",
+    "rule": "CommaValues -> Operand"
+  },
+  {
+    "len": 3,
+    "name": "CommaValues",
+    "rule": "CommaValues -> Operand , CommaValues"
+  },
+  {
+    "len": 3,
+    "name": "Attribution",
+    "rule": "Attribution -> TypedValue = Expression"
+  },
+  {
+    "len": 4,
+    "name": "FunctionRule",
+    "rule": "FunctionRule -> TypedValue ( ) Block"
+  },
+  {
+    "len": 5,
+    "name": "FunctionRule",
+    "rule": "FunctionRule -> TypedValue ( CommaTypedValue ) Block"
+  },
+  {
+    "len": 5,
+    "name": "Conditional",
+    "rule": "Conditional -> if ( Expression ) Block"
+  },
+  {
+    "len": 7,
+    "name": "Conditional",
+    "rule": "Conditional -> if ( Expression ) Block else Block"
+  },
+  {
+    "len": 5,
+    "name": "WhileLoop",
+    "rule": "WhileLoop -> while ( Expression ) Block"
+  },
+  {
+    "len": 2,
+    "name": "Block",
+    "rule": "Block -> {  }"
+  },
+  {
+    "len": 3,
+    "name": "Block",
+    "rule": "Block -> { Statements }"
+  },
+  {
+    "len": 2,
+    "name": "Statements",
+    "rule": "Statements -> SingleStatement Statements"
+  },
+  {
+    "len": 1,
+    "name": "Statements",
+    "rule": "Statements -> SingleStatement"
+  },
+  {
+    "len": 2,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> Expression ;"
+  },
+  {
+    "len": 3,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> return Expression ;"
+  },
+  {
+    "len": 2,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> Attribution ;"
+  },
+  {
+    "len": 5,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> print ( Operand ) ;"
+  },
+  {
+    "len": 1,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> FunctionRule"
+  },
+  {
+    "len": 1,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> Conditional"
+  },
+  {
+    "len": 1,
+    "name": "SingleStatement",
+    "rule": "SingleStatement -> WhileLoop"
+  }
+]

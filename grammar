@@ -3,11 +3,14 @@ else
 while
 and
 or
+not
 print
 int
 str
 float
 bool
+return
+,
 ;
 {
 }
