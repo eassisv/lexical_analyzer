@@ -1,0 +1,43 @@
+(a+b);
+(abcd + 4);
+(abcd - 4);
+(abcd * 4);
+(abcd / 4);
+(abcd == 4);
+(abcd >= 4);
+(abcd <= 4);
+not (abcd == 4);
+abcdddd;
+testando = 1000;
+[1, 2, 3, 4, 5];
+int myfunc (int a, str b) {
+  (a+b);
+  (abcd + 4);
+  (abcd - 4);
+  (abcd * 4);
+  (abcd / 4);
+  (abcd == 4);
+  (abcd >= 4);
+  (abcd <= 4);
+  not (abcd == 4);
+  abcdddd;
+  if (not ("S" == "N")) {
+    print(10);
+
+    while (not 10) {
+      print ("abcde");
+    }
+  } else {
+    testando = 1000;
+  }
+  [1, 2, 3, 4, 5];
+  return "abcdefg";
+}
+
+bool tautology() {
+  return true;
+
+  if ((this > that)) {
+    print("impossible");
+  }
+}

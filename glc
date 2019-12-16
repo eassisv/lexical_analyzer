@@ -23,11 +23,15 @@ Operand -> string
 Operand -> variable
 Operand -> List
 
+CommaValues -> Operand
+CommaValues -> Operand , CommaValues
+
 List -> [  ]
 List -> [ CommaValues ]
 
 Expression -> ( Expression ) 
 Expression -> ( Expression Operator Expression ) 
+Expression -> not Expression
 Expression -> Operand
 
 TypedValue -> Type variable
@@ -35,20 +39,18 @@ TypedValue -> Type variable
 CommaTypedValues -> TypedValue 
 CommaTypedValues -> TypedValue , CommaTypedValues
 
-CommaValues -> Operand
-CommaValues -> Operand , CommaValues
-
 Attribution -> TypedValue = Expression
+Attribution -> variable = Expression
 
 FunctionRule -> TypedValue ( ) Block
-FunctionRule -> TypedValue ( CommaTypedValue ) Block
+FunctionRule -> TypedValue ( CommaTypedValues ) Block
 
 Conditional -> if ( Expression ) Block
 Conditional -> if ( Expression ) Block else Block
 
 WhileLoop -> while ( Expression ) Block
 
-Block -> {  }
+Block -> { }
 Block -> { Statements }
 
 Statements -> SingleStatement Statements

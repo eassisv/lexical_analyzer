@@ -37,6 +37,11 @@ def parse():
 
         if action == None:
             print("Wrong syntax")
+            print(
+                "Error in line: {}: syntax: {}".format(
+                    tape[0]["line"], tape[0]["value"]
+                )
+            )
             return
 
         if action[0] == "s":

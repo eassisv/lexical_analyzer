@@ -58,6 +58,8 @@ delimiters = set(
         "*",
         "/",
         ";",
+        "[",
+        "]",
     ]
 )
 symbol_table = []
